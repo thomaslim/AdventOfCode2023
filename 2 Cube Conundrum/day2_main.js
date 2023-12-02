@@ -168,14 +168,24 @@ function compareGameToContent (game, content){
     return {name: game.gameName, result}
 }
 
-// Example usage
-// const result = createRoundsObject("8 green, 6 blue, 20 red");
-// console.log(result);
+function minimumBagContent(game) {
+    const result = game.rounds.reduce ((acc, item) => {
+        acc.minRed  = item.red && acc.minRed < item.red ? item.red : acc.minRed
+        acc.minGreen  = item.green && acc.minGreen < item.green ? item.green : acc.minGreen
+        acc.minBlue  = item.blue && acc.minBlue < item.blue ? item.blue : acc.minBlue
+        return acc 
+    }, {minRed: 0, minBlue: 0, minGreen: 0})
 
-// Example usage:
+    return result
+}
 
+function powerOfAGame(game){
+    const bagContent = minimumBagContent(game)
+    const power = bagContent.minBlue * bagContent.minGreen * bagContent.minRed
+    return power
+}
 
-function processData (dataSet) {
+function processPart1 (dataSet) {
     const resultArray = removeEmptyItems(splitLines(dataSet))
 
     const gameArray = resultArray.map((item) => {
@@ -190,5 +200,28 @@ function processData (dataSet) {
     return solution
 }
 
-const solution = processData(fullSet)
-console.log({solution})
+function processPart2 (dataSet) {
+    const resultArray = removeEmptyItems(splitLines(dataSet))
+
+    const gameArray = resultArray.map((item) => {
+        return transformGameIntoRounds(item)
+    })
+
+    console.log(gameArray)
+
+    gameArray.map (item => powerOfAGame(item))
+
+    const solution =  gameArray.reduce((acc, item) => {
+        return  acc + powerOfAGame(item)
+    }, 0)  
+
+
+    return solution
+}
+
+
+// const solution = processPart1(fullSet)
+// console.log('Part 1 solution', solution)
+
+const solution2 = processPart2(fullSet)
+console.log('Part 2 solution ', solution2)
