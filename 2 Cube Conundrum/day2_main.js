@@ -1,4 +1,8 @@
 
+module.exports = {
+    splitLines,
+    removeEmptyItems,
+}
 
 const demoSet = `
 Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green
@@ -223,5 +227,5 @@ function processPart2 (dataSet) {
 // const solution = processPart1(fullSet)
 // console.log('Part 1 solution', solution)
 
-const solution2 = processPart2(fullSet)
-console.log('Part 2 solution ', solution2)
+// const solution2 = processPart2(fullSet)
+// console.log('Part 2 solution ', solution2)
