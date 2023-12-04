@@ -1,4 +1,4 @@
-
+// https://adventofcode.com/2023/day/4
 
 const demoSet = `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
@@ -39,12 +39,35 @@ function getCardPoints(cardRecord) {
     return score
 }
 
-function getInputScore (input) {
+function getInputScoreChallenge1 (input) {
     const cardRecords = createCardRecords(input)
     const score = cardRecords.reduce((acc, record) => {
         return acc + getCardPoints(record)
     }, 0)
     return score
+}
+
+function getInputScoreChallenge2 (input) {
+    const cardRecords = createCardRecords(input)
+    const cardScores = cardRecords.map((card) => {
+        const myWinningNumbers = card.myNumbers.filter((number) => card.winningNumbers.includes(number))
+        return {id: card.id, nbWinningNumbers: myWinningNumbers.length, copies:1}
+    })
+
+    cardScores.forEach(element => {
+        if(element.nbWinningNumbers >0) {
+            for(i = +element.id+1; i < +element.id + element.nbWinningNumbers+1; i++) {
+                const index = cardScores.findIndex(obj => obj.id == i)
+                cardScores[index]? cardScores[index].copies = cardScores[index].copies + element.copies : null
+            }
+        }
+    })
+    
+    const result = cardScores.reduce((acc, value) => {
+        return acc + value.copies
+    }, 0)
+    
+    return result
 }
 
 test('Card records creation', () => {
@@ -61,7 +84,12 @@ test('Card point calcultation', () => {
     expect(getCardPoints(demoCardRecords[5])).toEqual(0)
 })
 
-test('Get input score', () => {
-    expect(getInputScore(demoSet)).toEqual(13)
-    expect(getInputScore(puzzleInput)).toEqual(27454)
+test('Get input score for challenge 1' , () => {
+    expect(getInputScoreChallenge1(demoSet)).toEqual(13)
+    expect(getInputScoreChallenge1(puzzleInput)).toEqual(27454)
+})
+
+test('Get input score for challenge 2' , () => {
+    expect(getInputScoreChallenge2(demoSet)).toEqual(30)
+    expect(getInputScoreChallenge2(puzzleInput)).toEqual(6857330)
 })
