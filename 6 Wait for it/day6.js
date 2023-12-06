@@ -13,11 +13,20 @@ function getDistanceForDuration(raceDuration, buttonDuration) {
 
 function findWinningSolutions(raceDuration, raceRecord) {
     let winningSolutionsCounter = 0
-    for (button = 0; button<raceDuration; button++) {
-        const distance = getDistanceForDuration(raceDuration, button)
-        const test = distance > raceRecord
-        winningSolutionsCounter = distance > raceRecord ? winningSolutionsCounter+1 : winningSolutionsCounter
+
+    const halfTime = Math.ceil(raceDuration/2)
+    let cursor = 0
+    while (true) {
+        const distance = getDistanceForDuration(raceDuration, halfTime+cursor)
+        if ( distance <= raceRecord) break
+        if (raceDuration % 2 == 0 && cursor == 0) {
+            winningSolutionsCounter =  winningSolutionsCounter+1
+        } else {
+            winningSolutionsCounter =  winningSolutionsCounter+2  
+        }
+        cursor = cursor+1  
     }
+
     return winningSolutionsCounter
 }
 
