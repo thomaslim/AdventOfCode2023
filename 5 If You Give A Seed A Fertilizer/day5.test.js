@@ -1,5 +1,7 @@
+/* eslint-disable no-use-before-define */
 // https://adventofcode.com/2023/day/5
 
+// eslint-disable-next-line no-unused-vars
 const demoSet = `seeds: 79 14 55 13
 
 seed-to-soil map:
@@ -33,45 +35,46 @@ temperature-to-humidity map:
 humidity-to-location map:
 60 56 37
 56 93 4
-`
+`;
 
-const demoSeeds = `seeds: 79 14 55 13`
+const demoSeeds = "seeds: 79 14 55 13";
 const demoSeedToSoilMap = `
 50 98 2
-52 50 48`
+52 50 48`;
 const demoSoilToFertilizerMap = `
 0 15 37
 37 52 2
-39 0 15`
+39 0 15`;
 const demoFertilizerToWaterMap = `
 49 53 8
 0 11 42
 42 0 7
-57 7 4`
+57 7 4`;
 const demoWaterToLightMap = `
 88 18 7
-18 25 70`
+18 25 70`;
 const demoLightToTemperature = `
 45 77 23
 81 45 19
-68 64 13`
+68 64 13`;
 const demoTemperatureToHumidity = `
 0 69 1
-1 0 69`
+1 0 69`;
 const demoHumidityToLocation = `
 60 56 37
-56 93 4`
+56 93 4`;
 const demoMaps = {
-    seedToSoilMap: demoSeedToSoilMap,
-    soilToFertilizerMap: demoSoilToFertilizerMap, 
-    fertilizerToWaterMap: demoFertilizerToWaterMap, 
-    waterToLightMap: demoWaterToLightMap, 
-    lightToTemperature: demoLightToTemperature, 
-    temperatureToHumidity: demoTemperatureToHumidity, 
-    humidityToLocation: demoHumidityToLocation }
+  seedToSoilMap: demoSeedToSoilMap,
+  soilToFertilizerMap: demoSoilToFertilizerMap,
+  fertilizerToWaterMap: demoFertilizerToWaterMap,
+  waterToLightMap: demoWaterToLightMap,
+  lightToTemperature: demoLightToTemperature,
+  temperatureToHumidity: demoTemperatureToHumidity,
+  humidityToLocation: demoHumidityToLocation,
+};
 
-
-const puzzleSeeds = `seeds: 3429320627 235304036 1147330745 114559245 1684000747 468955901 677937579 96599505 1436970021 26560102 3886049334 159534901 936845926 25265009 3247146679 95841652 3696363517 45808572 2319065313 125950148`
+const puzzleSeeds =
+  "seeds: 3429320627 235304036 1147330745 114559245 1684000747 468955901 677937579 96599505 1436970021 26560102 3886049334 159534901 936845926 25265009 3247146679 95841652 3696363517 45808572 2319065313 125950148";
 const puzzleSeedToSoilMap = `
 583826644 2288418886 120919689
 2666741396 3172314277 160907737
@@ -89,7 +92,7 @@ const puzzleSeedToSoilMap = `
 2180879562 1040966210 485861834
 1392688680 773083620 135062877
 3095948906 0 237273108
-2042315634 2627773294 138563928`
+2042315634 2627773294 138563928`;
 const puzzleSoilToFertilizerMap = `
 3793729374 3825015981 63222599
 1438266078 0 258943930
@@ -116,7 +119,7 @@ const puzzleSoilToFertilizerMap = `
 4164423035 3888238580 16188102
 3202028846 1839669649 5988115
 804927654 2763203434 38625554
-4049362817 3616591200 52280321`
+4049362817 3616591200 52280321`;
 const puzzleFertilizerToWaterMap = `
 3734704645 4081344261 116089008
 474703780 198917265 194664963
@@ -164,7 +167,7 @@ const puzzleFertilizerToWaterMap = `
 1922271955 1534543997 91646157
 4237452890 3911741488 57514406
 2831022378 2327120575 12587900
-1444941737 193812194 5105071`
+1444941737 193812194 5105071`;
 const puzzleWaterToLightMap = `
 3241790649 0 474458786
 1987249042 1535533387 1254541607
@@ -173,7 +176,7 @@ const puzzleWaterToLightMap = `
 1051771035 3080023519 694575489
 817087053 1300849405 234683982
 1746346524 474458786 240902518
-0 2790074994 289948525`
+0 2790074994 289948525`;
 const puzzleLightToTemperature = `
 2243197897 1858683458 54522139
 694397455 637497541 323467072
@@ -189,7 +192,7 @@ const puzzleLightToTemperature = `
 3393398302 4239967677 54999619
 137478840 493633947 143863594
 3305645149 4152214524 87753153
-1452767019 2381610761 316703919`
+1452767019 2381610761 316703919`;
 const puzzleTemperatureToHumidity = `
 36297311 0 6725362
 2219701249 4240213747 25288799
@@ -230,7 +233,7 @@ const puzzleTemperatureToHumidity = `
 567838312 35779058 13066795
 1038619810 3341894127 253905593
 3980683164 2804931013 240154296
-0 48845853 36297311`
+0 48845853 36297311`;
 const puzzleHumidityToLocation = `
 2609743610 4133079426 108193613
 1608826026 1793129808 148682069
@@ -255,165 +258,185 @@ const puzzleHumidityToLocation = `
 0 7716722 264620169
 1760546930 861861645 363768604
 3396235969 2667210348 353247677
-2502359673 3322472440 23907387`
+2502359673 3322472440 23907387`;
 const puzzleMaps = {
-    seedToSoilMap: puzzleSeedToSoilMap,
-    soilToFertilizerMap: puzzleSoilToFertilizerMap, 
-    fertilizerToWaterMap: puzzleFertilizerToWaterMap, 
-    waterToLightMap: puzzleWaterToLightMap, 
-    lightToTemperature: puzzleLightToTemperature, 
-    temperatureToHumidity: puzzleTemperatureToHumidity, 
-    humidityToLocation: puzzleHumidityToLocation }
+  seedToSoilMap: puzzleSeedToSoilMap,
+  soilToFertilizerMap: puzzleSoilToFertilizerMap,
+  fertilizerToWaterMap: puzzleFertilizerToWaterMap,
+  waterToLightMap: puzzleWaterToLightMap,
+  lightToTemperature: puzzleLightToTemperature,
+  temperatureToHumidity: puzzleTemperatureToHumidity,
+  humidityToLocation: puzzleHumidityToLocation,
+};
 
-test('Get seeds list', () => {
-    expect(extractSeeds(demoSeeds)).toStrictEqual([79, 14,55,13])
-})
+test("Get seeds list", () => {
+  expect(extractSeeds(demoSeeds)).toStrictEqual([79, 14, 55, 13]);
+});
 
 // test ('Convert line into map')
 
-test('Create conversion map', () => {
-    const subSet = demoSeedToSoilMap
+test("Create conversion map", () => {
+  const subSet = demoSeedToSoilMap;
 
-    const expResultExtractInputLineData = {
-        "destination_start": 50,
-        "range_length": 2,
-        "source_start": 98,
-        "source_end": 99,
-    }
+  const expResultExtractInputLineData = {
+    destination_start: 50,
+    range_length: 2,
+    source_start: 98,
+    source_end: 99,
+  };
 
-    expect(extractInputLineData('50 98 2')).toStrictEqual(expResultExtractInputLineData)
-    expect(generateConversionForLine(expResultExtractInputLineData)).toStrictEqual( [{"destination": 50, "source": 98}, {"destination": 51, "source": 99}])
-    
-    const testFullMap = generateFullMapFromInput(subSet)
-    expect(testFullMap.length).toStrictEqual(50)
-    expect(convertValueWithMap(79, testFullMap)).toEqual(81)
-    expect(convertValueWithMap(14, testFullMap)).toEqual(14)
-    expect(convertValueWithMap(55, testFullMap)).toEqual(57)
-    expect(convertValueWithMap(13, testFullMap)).toEqual(13)
+  expect(extractInputLineData("50 98 2")).toStrictEqual(
+    expResultExtractInputLineData,
+  );
+  expect(
+    generateConversionForLine(expResultExtractInputLineData),
+  ).toStrictEqual([
+    { destination: 50, source: 98 },
+    { destination: 51, source: 99 },
+  ]);
 
-    const testMapMeta = generateMapMetaFromInput(subSet)
-    expect(testMapMeta.length).toStrictEqual(2)
-    expect(convertValueFromMapMeta(79, testMapMeta)).toEqual(81)
-    expect(convertValueFromMapMeta(14, testMapMeta)).toEqual(14)
-    expect(convertValueFromMapMeta(55, testMapMeta)).toEqual(57)
-    expect(convertValueFromMapMeta(13, testMapMeta)).toEqual(13)
+  const testFullMap = generateFullMapFromInput(subSet);
+  expect(testFullMap.length).toStrictEqual(50);
+  expect(convertValueWithMap(79, testFullMap)).toEqual(81);
+  expect(convertValueWithMap(14, testFullMap)).toEqual(14);
+  expect(convertValueWithMap(55, testFullMap)).toEqual(57);
+  expect(convertValueWithMap(13, testFullMap)).toEqual(13);
 
-    expect( convertSeedToLocation(79, demoMaps) ).toEqual(82)
-    expect( convertSeedToLocation(14, demoMaps) ).toEqual(43)
-    expect( convertSeedToLocation(55, demoMaps) ).toEqual(86)
-    expect( convertSeedToLocation(13, demoMaps) ).toEqual(35)
-    
-})
+  const testMapMeta = generateMapMetaFromInput(subSet);
+  expect(testMapMeta.length).toStrictEqual(2);
+  expect(convertValueFromMapMeta(79, testMapMeta)).toEqual(81);
+  expect(convertValueFromMapMeta(14, testMapMeta)).toEqual(14);
+  expect(convertValueFromMapMeta(55, testMapMeta)).toEqual(57);
+  expect(convertValueFromMapMeta(13, testMapMeta)).toEqual(13);
 
-test ('Solution part 1', () => {
-    expect( solution1(demoSeeds, demoMaps)).toEqual(35)
-    expect( solution1(puzzleSeeds, puzzleMaps)).toEqual(240320250)
-})
+  expect(convertSeedToLocation(79, demoMaps)).toEqual(82);
+  expect(convertSeedToLocation(14, demoMaps)).toEqual(43);
+  expect(convertSeedToLocation(55, demoMaps)).toEqual(86);
+  expect(convertSeedToLocation(13, demoMaps)).toEqual(35);
+});
 
-function extractSeeds (input) {
-    const seedList = [...input.matchAll(/\d+/g)]
-    return seedList.flat().map(item => +item)
+test("Solution part 1", () => {
+  expect(solution1(demoSeeds, demoMaps)).toEqual(35);
+  expect(solution1(puzzleSeeds, puzzleMaps)).toEqual(240320250);
+});
+
+function extractSeeds(input) {
+  const seedList = [...input.matchAll(/\d+/g)];
+  return seedList.flat().map((item) => +item);
 }
 
 function extractInputLineData(line) {
-    const temp = [...line.matchAll(/\d+/g)].flat()
-    
-    const values = [...line.matchAll(/\d+/g)].flat()
-    if (!values.length) {
-        return
-    }
-    return {
-        destination_start: +values[0],
-        source_start: +values[1],
-        source_end: +values[1] + +values[2] -1,
-        range_length: +values[2]
-    }
+  const values = [...line.matchAll(/\d+/g)].flat();
+  if (!values.length) {
+    return false;
+  }
+  return {
+    destination_start: +values[0],
+    source_start: +values[1],
+    source_end: +values[1] + +values[2] - 1,
+    range_length: +values[2],
+  };
 }
 
 function generateConversionForLine(line) {
-    const conversion = [] // [{source: destination}]
-    for (index = 0; index < line.range_length; index++) {
-        conversion.push({ source: line.source_start+index, destination: line.destination_start+index })
-    }
-        
-    return conversion
+  const conversion = []; // [{source: destination}]
+  for (let index = 0; index < line.range_length; index += 1) {
+    conversion.push({
+      source: line.source_start + index,
+      destination: line.destination_start + index,
+    });
+  }
+
+  return conversion;
 }
 
 function generateMapMetaFromInput(input) {
-    const lines = input.split('\n').map(extractInputLineData).filter(item => item)
+  const lines = input
+    .split("\n")
+    .map(extractInputLineData)
+    .filter((item) => item);
 
-    return lines
+  return lines;
 }
 
 function generateFullMapFromInput(input) {
-    const lines = input.split('\n').map(extractInputLineData).filter(item => item)
-    const map = lines.reduce((acc, value) => {
-        acc.push(generateConversionForLine(value))
-        return acc.flat()
-    }, [])
+  const lines = input
+    .split("\n")
+    .map(extractInputLineData)
+    .filter((item) => item);
+  const map = lines.reduce((acc, value) => {
+    acc.push(generateConversionForLine(value));
+    return acc.flat();
+  }, []);
 
-    return map
+  return map;
 }
 
 function convertValueWithMap(input, map) {
-    const index = map.findIndex( obj => obj.source == input)
-    if (index == -1) {
-        return input
-    }
-    return map[index].destination
+  const index = map.findIndex((obj) => obj.source === input);
+  if (index === -1) {
+    return input;
+  }
+  return map[index].destination;
 }
 
 function convertValueFromMapMeta(input, map) {
-    for (index in map) {
-        if(input >= map[index].source_start && input <= map[index].source_end) {
-            return input-map[index].source_start + map[index].destination_start
-        }
+  // eslint-disable-next-line no-restricted-syntax
+  for (const index in map) {
+    if (input >= map[index].source_start && input <= map[index].source_end) {
+      return input - map[index].source_start + map[index].destination_start;
     }
+  }
 
-    return input
+  return input;
 }
-
 
 function convertSeedToLocation(seedId, maps) {
-    // const seedToSoilMap = generateFullMapFromInput(maps.seedToSoilMap)
-    // const soilToFertilizerMap = generateFullMapFromInput(maps.soilToFertilizerMap)
-    // const fertilizerToWaterMap = generateFullMapFromInput(maps.fertilizerToWaterMap)
-    // const waterToLightMap = generateFullMapFromInput(maps.waterToLightMap)
-    // const lightToTemperature = generateFullMapFromInput(maps.lightToTemperature)
-    // const temperatureToHumidity = generateFullMapFromInput(maps.temperatureToHumidity)
-    // const humidityToLocation = generateFullMapFromInput(maps.humidityToLocation)
+  // const seedToSoilMap = generateFullMapFromInput(maps.seedToSoilMap)
+  // const soilToFertilizerMap = generateFullMapFromInput(maps.soilToFertilizerMap)
+  // const fertilizerToWaterMap = generateFullMapFromInput(maps.fertilizerToWaterMap)
+  // const waterToLightMap = generateFullMapFromInput(maps.waterToLightMap)
+  // const lightToTemperature = generateFullMapFromInput(maps.lightToTemperature)
+  // const temperatureToHumidity = generateFullMapFromInput(maps.temperatureToHumidity)
+  // const humidityToLocation = generateFullMapFromInput(maps.humidityToLocation)
 
-    const seedToSoilMap = generateMapMetaFromInput(maps.seedToSoilMap)
-    const soilToFertilizerMap = generateMapMetaFromInput(maps.soilToFertilizerMap)
-    const fertilizerToWaterMap = generateMapMetaFromInput(maps.fertilizerToWaterMap)
-    const waterToLightMap = generateMapMetaFromInput(maps.waterToLightMap)
-    const lightToTemperature = generateMapMetaFromInput(maps.lightToTemperature)
-    const temperatureToHumidity = generateMapMetaFromInput(maps.temperatureToHumidity)
-    const humidityToLocation = generateMapMetaFromInput(maps.humidityToLocation)
+  const seedToSoilMap = generateMapMetaFromInput(maps.seedToSoilMap);
+  const soilToFertilizerMap = generateMapMetaFromInput(
+    maps.soilToFertilizerMap,
+  );
+  const fertilizerToWaterMap = generateMapMetaFromInput(
+    maps.fertilizerToWaterMap,
+  );
+  const waterToLightMap = generateMapMetaFromInput(maps.waterToLightMap);
+  const lightToTemperature = generateMapMetaFromInput(maps.lightToTemperature);
+  const temperatureToHumidity = generateMapMetaFromInput(
+    maps.temperatureToHumidity,
+  );
+  const humidityToLocation = generateMapMetaFromInput(maps.humidityToLocation);
 
-    return convertValueFromMapMeta(
+  return convertValueFromMapMeta(
+    convertValueFromMapMeta(
+      convertValueFromMapMeta(
         convertValueFromMapMeta(
+          convertValueFromMapMeta(
             convertValueFromMapMeta(
-                convertValueFromMapMeta(
-                    convertValueFromMapMeta(
-                        convertValueFromMapMeta(
-                            convertValueFromMapMeta(seedId, seedToSoilMap), 
-                            soilToFertilizerMap
-                        ),
-                        fertilizerToWaterMap
-                    ),
-                    waterToLightMap
-                ),
-                lightToTemperature
+              convertValueFromMapMeta(seedId, seedToSoilMap),
+              soilToFertilizerMap,
             ),
-            temperatureToHumidity
+            fertilizerToWaterMap,
+          ),
+          waterToLightMap,
         ),
-        humidityToLocation
-    )
+        lightToTemperature,
+      ),
+      temperatureToHumidity,
+    ),
+    humidityToLocation,
+  );
 }
 
-function solution1 (demoSet, maps) {
-    const seeds = extractSeeds(demoSet)
-    const locations = seeds.map(seed => convertSeedToLocation(seed, maps))
-    return Math.min(...locations)
+function solution1(seedSet, maps) {
+  const seeds = extractSeeds(seedSet);
+  const locations = seeds.map((seed) => convertSeedToLocation(seed, maps));
+  return Math.min(...locations);
 }
