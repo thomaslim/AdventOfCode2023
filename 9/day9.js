@@ -30,15 +30,36 @@ e.parseLine = (inputString) => {
           numbers[j][extrapolatedValueIndex - 1];
     j -= 1;
   }
+  const nextValueUp = numbers[0][numbers[0].length - 1];
 
-  const extrapolatedValue = numbers[0][numbers[0].length - 1];
+  let k = numbers.length - 1;
+  let previousValueDown;
+  while (k >= 0) {
+    if (k === numbers.length - 1) {
+      previousValueDown = 0;
+    } else {
+      previousValueDown = numbers[k][0] - previousValueDown;
+    }
+    k -= 1;
+  }
 
-  return extrapolatedValue;
+  return { nextValueUp, previousValueDown };
 };
 
 e.sumOfExtrapotaledValues = (input) => {
   const inputLines = input.split("\n");
   const extrapolatedValues = inputLines.map(e.parseLine);
 
-  return extrapolatedValues.reduce((acc, item) => acc + item, 0);
+  return extrapolatedValues.reduce((acc, item) => acc + item.nextValueUp, 0);
 };
+
+e.sumOfExtrapotaledValuesDown = (input) => {
+  const inputLines = input.split("\n");
+  const extrapolatedValues = inputLines.map(e.parseLine);
+
+  return extrapolatedValues.reduce(
+    (acc, item) => acc + item.previousValueDown,
+    0,
+  );
+};
+
