@@ -4,7 +4,7 @@ function parseInput(input) {
   const conversions = rawLines
     .filter((line) => line.match(/=/))
     .map((line) => {
-      const regex = /([A-Z]*) = \(([A-Z]*), ([A-Z]*)/;
+      const regex = /([0-9A-Z]*) = \(([0-9A-Z]*), ([0-9A-Z]*)/;
       const lineSegments = line.match(regex);
       return {
         in: lineSegments[1],
@@ -23,22 +23,43 @@ function getNextStep(conversions, entry, direction) {
   return nextStep;
 }
 
-function countStepsToReachZZZ(input) {
+function getStartingPoints(parsedInput) {
+  return parsedInput.conversions
+    .filter((item) => item.in.match(/[0-9A-Z]{2}A/))
+    .map((item) => item.in);
+}
+
+function lcm(arr) {
+  const gcd = (x, y) => (!y ? x : gcd(y, x % y));
+  const tlcm = (x, y) => (x * y) / gcd(x, y);
+  return arr.reduce((a, b) => tlcm(a, b));
+}
+
+function countStepsToReachZZZ(input, challenge2 = false) {
   const instructions = parseInput(input);
   const directions = instructions.directions.split("");
-  let step = "AAA";
-  let counter = 0;
-  while (step !== "ZZZ") {
-    const direction = directions[counter % directions.length];
-    step = getNextStep(instructions.conversions, step, direction);
-    counter += 1;
-  }
 
-  return counter;
+  const steps = challenge2 ? getStartingPoints(instructions) : ["AAA"];
+  const validationRegex = challenge2 ? /[0-9A-Z]{2}Z/ : /ZZZ/;
+
+  const counterPerStartingSteps = steps.map((step) => {
+    let counter = 0;
+    let iterator = step;
+    while (!iterator.match(validationRegex)) {
+      const direction = directions[counter % directions.length];
+      iterator = getNextStep(instructions.conversions, iterator, direction);
+
+      counter += 1;
+    }
+    return { step, counter };
+  });
+
+  return lcm(counterPerStartingSteps.map((item) => item.counter));
 }
 
 module.exports = {
   countStepsToReachZZZ,
   parseInput,
   getNextStep,
+  getStartingPoints,
 };

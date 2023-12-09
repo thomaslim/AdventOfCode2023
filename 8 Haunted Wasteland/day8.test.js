@@ -22,6 +22,17 @@ AAA = (BBB, BBB)
 BBB = (AAA, ZZZ)
 ZZZ = (ZZZ, ZZZ)`;
 
+const demoInput3 = `LR
+
+11A = (11B, XXX)
+11B = (XXX, 11Z)
+11Z = (11B, XXX)
+22A = (22B, XXX)
+22B = (22C, 22C)
+22C = (22Z, 22Z)
+22Z = (22B, 22B)
+XXX = (XXX, XXX)`;
+
 test("Parse input", () => {
   expect(f.parseInput(demoInput2)).toEqual({
     conversions: [
@@ -85,4 +96,16 @@ test("Count steps to ZZZ", () => {
 
 test("Solution Part 1", () => {
   expect(f.countStepsToReachZZZ(puzzleInput)).toEqual(12599);
+});
+
+test("Get Ghost starting points", () => {
+  expect(f.getStartingPoints(f.parseInput(demoInput3))).toEqual(["11A", "22A"]);
+});
+
+test("Get Ghost steps", () => {
+  expect(f.countStepsToReachZZZ(demoInput3, true)).toEqual(6);
+});
+
+test("Solution Part 2", () => {
+  expect(f.countStepsToReachZZZ(puzzleInput, true)).toEqual(8245452805243);
 });
