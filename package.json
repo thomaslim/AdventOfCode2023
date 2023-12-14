@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "See https://adventofcode.com/",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "debug": "jest",
     "test": "jest --watch",

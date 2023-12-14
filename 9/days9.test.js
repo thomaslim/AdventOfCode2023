@@ -1,5 +1,5 @@
 const fs = require("fs");
-const f = require("./day9");
+const f = require("./day9.js");
 
 const puzzleInput = fs.readFileSync("9/input.txt").toString("utf-8").trim();
 

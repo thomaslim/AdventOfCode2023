@@ -1,4 +1,4 @@
-const functions = require("./day2_main");
+const functions = require("./day2_main.js");
 
 test("Split lines", () => {
   const demoSet = `

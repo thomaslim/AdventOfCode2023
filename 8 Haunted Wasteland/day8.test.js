@@ -1,5 +1,5 @@
 const fs = require("fs");
-const f = require("./day8");
+const f = require("./day8.js");
 
 const puzzleInput = fs
   .readFileSync("8 Haunted Wasteland/input.txt")

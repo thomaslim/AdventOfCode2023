@@ -5,15 +5,6 @@
     "jest": true
   },
   "rules": {
-    "max-len": [
-      "error",
-      {
-        "code": 170,
-        "ignoreStrings": true,
-        "ignoreComments": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreUrls": true
-      }
-    ]
+    "import/extensions": [1, "ignorePackages"]
   }
 }

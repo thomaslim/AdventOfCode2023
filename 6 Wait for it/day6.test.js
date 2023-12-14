@@ -1,4 +1,4 @@
-const functions = require("./day6");
+const functions = require("./day6.js");
 
 const demoSet = [
   {

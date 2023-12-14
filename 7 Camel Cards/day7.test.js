@@ -1,5 +1,5 @@
 const fs = require("fs");
-const functions = require("./day7");
+const functions = require("./day7.js");
 
 const demoSet = `32T3K 765
 T55J5 684
