@@ -22,6 +22,59 @@ function calculateHashForSequence(sequence) {
   return items.reduce((acc, item) => acc + calculateHash(item), 0);
 }
 
+function calculateFocusPowerForSequence(sequence) {
+  const items = sequence.split(",");
+  const sequenceDetails = items.map(item => {
+    const regex = /(\w+)([=-])(\d*)/gm;
+
+    const label = regex.exec(item)
+    return {
+      label: label[1],
+      focal: label[3],
+      operation: label[2],
+      box: calculateHash(label[1])
+    }
+  });
+
+  const lensBox = []
+  // parse sequence
+  for (let index = 0; index < sequenceDetails.length; index +=1){
+    const item = sequenceDetails[index]
+    if (item.operation === "=") {
+      if (!lensBox[item.box] || !lensBox[item.box].length) {
+        lensBox[item.box] = [item]
+      } else {
+        const i = lensBox[item.box].findIndex( a => a.label === item.label)
+        if (i !== -1) { 
+          lensBox[item.box][i].focal = item.focal
+        } else {
+          lensBox[item.box].push(item)
+        }
+      }
+    }
+    if (item.operation === "-") {
+
+      if ( lensBox[item.box] ) {
+        const i = lensBox[item.box].findIndex( a => a.label === item.label)
+        if (i !== -1) lensBox[item.box].splice(i, 1)
+      }
+    }
+  }
+
+  const focalPower = lensBox.reduce( (acc, box, boxIndex) => {
+    const boxPower = box.reduce( (acc2, lense, lenseIndex) => {
+      const boxValue = 1+boxIndex
+      const slotValue = 1+lenseIndex
+      const focalValue = lense.focal
+      const lenseValue = boxValue * slotValue * focalValue
+      return acc2 + lenseValue; 
+    }, 0)
+    return acc + boxPower; 
+  }, 0)
+
+  return focalPower
+}
+
 const demoSet = "HASH";
 const demoSet2 = "rn=1,cm-,qp=3,cm=2,qp-,pc=4,ot=9,ab=5,pc-,pc=6,ot=7";
 
@@ -51,6 +104,28 @@ test("calculate hash for sequence", () => {
   expect(calculateHashForSequence(demoSet2)).toEqual(1320);
 });
 
-test("solution part 1", () => {
+test("solutioo part 1", () => {
   expect(calculateHashForSequence(puzzleInput)).toEqual(511416);
+});
+
+test("calculate hash part 2", () => {
+  expect(calculateHash("rn")).toEqual(0);
+  expect(calculateHash("cm")).toEqual(0);
+  expect(calculateHash("qp")).toEqual(1);
+  expect(calculateHash("cm")).toEqual(0);
+  expect(calculateHash("qp")).toEqual(1);
+  expect(calculateHash("pc")).toEqual(3);
+  expect(calculateHash("ot")).toEqual(3);
+  expect(calculateHash("ab")).toEqual(3);
+  expect(calculateHash("pc")).toEqual(3);
+  expect(calculateHash("pc")).toEqual(3);
+  expect(calculateHash("ot")).toEqual(3);
+});
+
+test("calculate power for sequence", () => {
+  expect(calculateFocusPowerForSequence(demoSet2)).toEqual(145);
+});
+
+test("solution part 2", () => {
+  expect(calculateFocusPowerForSequence(puzzleInput)).toEqual(290779);
 });
