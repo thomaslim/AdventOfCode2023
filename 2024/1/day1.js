@@ -17,8 +17,6 @@ function sortObject(input) {
 
 }
 
-
-
 function calculateDistance(i, j){
   return j<i ?  i-j : j-i
 }
@@ -31,9 +29,20 @@ function computeTotalDistance(sortedObject) {
   return totalDistance
 }
 
+function findSimilarityForNumber(item, array) {
+  const filteredArray = array.filter(i => i === item)
+  return filteredArray.length
+}
+
+function findTotalSimilarity (sortedObject) {
+  return sortedObject.column1.reduce( (acc, item) =>  acc + item * findSimilarityForNumber(item,sortedObject.column2 ), 0)
+}
+
 module.exports = {
   parseInputAsString,
   sortObject,
   calculateDistance,
-  computeTotalDistance
+  computeTotalDistance,
+  findSimilarityForNumber,
+  findTotalSimilarity,
 };
