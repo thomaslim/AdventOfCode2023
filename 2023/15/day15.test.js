@@ -24,55 +24,54 @@ function calculateHashForSequence(sequence) {
 
 function calculateFocusPowerForSequence(sequence) {
   const items = sequence.split(",");
-  const sequenceDetails = items.map(item => {
+  const sequenceDetails = items.map((item) => {
     const regex = /(\w+)([=-])(\d*)/gm;
 
-    const label = regex.exec(item)
+    const label = regex.exec(item);
     return {
       label: label[1],
       focal: label[3],
       operation: label[2],
-      box: calculateHash(label[1])
-    }
+      box: calculateHash(label[1]),
+    };
   });
 
-  const lensBox = []
+  const lensBox = [];
   // parse sequence
-  for (let index = 0; index < sequenceDetails.length; index +=1){
-    const item = sequenceDetails[index]
+  for (let index = 0; index < sequenceDetails.length; index += 1) {
+    const item = sequenceDetails[index];
     if (item.operation === "=") {
       if (!lensBox[item.box] || !lensBox[item.box].length) {
-        lensBox[item.box] = [item]
+        lensBox[item.box] = [item];
       } else {
-        const i = lensBox[item.box].findIndex( a => a.label === item.label)
-        if (i !== -1) { 
-          lensBox[item.box][i].focal = item.focal
+        const i = lensBox[item.box].findIndex((a) => a.label === item.label);
+        if (i !== -1) {
+          lensBox[item.box][i].focal = item.focal;
         } else {
-          lensBox[item.box].push(item)
+          lensBox[item.box].push(item);
         }
       }
     }
     if (item.operation === "-") {
-
-      if ( lensBox[item.box] ) {
-        const i = lensBox[item.box].findIndex( a => a.label === item.label)
-        if (i !== -1) lensBox[item.box].splice(i, 1)
+      if (lensBox[item.box]) {
+        const i = lensBox[item.box].findIndex((a) => a.label === item.label);
+        if (i !== -1) lensBox[item.box].splice(i, 1);
       }
     }
   }
 
-  const focalPower = lensBox.reduce( (acc, box, boxIndex) => {
-    const boxPower = box.reduce( (acc2, lense, lenseIndex) => {
-      const boxValue = 1+boxIndex
-      const slotValue = 1+lenseIndex
-      const focalValue = lense.focal
-      const lenseValue = boxValue * slotValue * focalValue
-      return acc2 + lenseValue; 
-    }, 0)
-    return acc + boxPower; 
-  }, 0)
+  const focalPower = lensBox.reduce((acc, box, boxIndex) => {
+    const boxPower = box.reduce((acc2, lense, lenseIndex) => {
+      const boxValue = 1 + boxIndex;
+      const slotValue = 1 + lenseIndex;
+      const focalValue = lense.focal;
+      const lenseValue = boxValue * slotValue * focalValue;
+      return acc2 + lenseValue;
+    }, 0);
+    return acc + boxPower;
+  }, 0);
 
-  return focalPower
+  return focalPower;
 }
 
 const demoSet = "HASH";

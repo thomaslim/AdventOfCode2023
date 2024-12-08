@@ -62,4 +62,3 @@ e.sumOfExtrapotaledValuesDown = (input) => {
     0,
   );
 };
-
